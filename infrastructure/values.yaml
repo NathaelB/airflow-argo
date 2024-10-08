@@ -1,0 +1,13 @@
+postgresql:
+  enabled: true
+  auth:
+    database: airflow
+    postgresPassword: postgres
+    enablePostgresUser: true
+    replicationPassword: replication
+
+  architecture: replication
+
+  replication:
+    enabled: true
+    readReplicas: 1
