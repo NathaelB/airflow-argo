@@ -1,0 +1,26 @@
+executor: "CeleryExecutor"
+
+config:
+  AIRFLOW__CORE__LOAD_EXAMPLES: "False"
+  AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "True"
+
+flower:
+  enabled: true
+
+redis:
+  enabled: true
+
+postgresql:
+  enabled: true
+  postgresqlPassword: "airflow"
+
+dags:
+  persistence:
+    enabled: true
+    existingClaim: "airflow-dags-pvc" 
+
+web:
+  defaultUser:
+    enabled: true
+    username: "admin"
+    password: "admin"
