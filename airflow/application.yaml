@@ -3,28 +3,54 @@ kind: Application
 metadata:
   name: airflow
   namespace: argocd
-spec:
+spec: 
   project: default
   source:
-    repoURL: https://github.com/nathaelb/airflow-argo.git  # Répertoire contenant les charts Helm d'Airflow
+    repoURL: https://github.com/airflow-helm/charts.git  # Airflow Helm chart repository
     targetRevision: main
-    path: airflow
+    path: charts/airflow  # The path where the Helm chart is located in the repo
     helm:
-      valueFiles:
-        - values.yaml  # Fichier de valeurs Helm pour Airflow
-        # - sample-values-KubernetesExecutor.yaml
+      values: |
+        airflow:
+          executor: "KubernetesExecutor"
 
+        config:
+          AIRFLOW__CORE__LOAD_EXAMPLES: "False"
+          AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "True"
 
+        flower:
+          enabled: false
 
-      # parameters:
-      #   - name: airflow.executor
-      #     value: "KubernetesExecutor"
-      #   - name: airflow.workers.enabled
-      #     value: "false"
-      #   - name: flower.enabled
-      #     value: "false"
-      #   - name: redis.enabled
-      #     value: "false"
+        redis:
+          enabled: false
+
+        postgresql:
+          enabled: false
+
+        workers:
+          enabled: false
+        
+        pgbouncer:
+          enabled: false
+
+        dags:
+          persistence:
+            enabled: true
+
+        web:
+          defaultUser:
+            enabled: true
+            username: "admin"
+            password: "admin"
+
+        externalDatabase:
+          type: postgres
+          host: postgresql-ha-postgresql
+          port: 5432
+          database: postgres
+          user: postgres
+          passwordSecret: "postgresql-ha-postgresql"
+          passwordSecretKey: "password"
   destination:
     server: https://kubernetes.default.svc
     namespace: airflow

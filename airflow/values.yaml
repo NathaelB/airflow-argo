@@ -1,20 +1,20 @@
-airflow:
-  executor: "KubernetesExecutor"
-  postgresql:
-    enabled: false
-  externalDatabase:
-    ## the type of external database
-    ## [FAQ] https://github.com/airflow-helm/charts/blob/main/charts/airflow/docs/faq/database/external-database.md
-    type: postgres
-    host: a-postgresql-ha-postgresql.dev.svc.cluster.local
-    port: 5432
-    database: airflow
-    user: postgres
-    password: fR9QIVp0pA
-  workers:
-    ## if the airflow workers StatefulSet should be deployed
-    enabled: false
-  triggerer:
+executor: "KubernetesExecutor"
+
+config:
+  AIRFLOW__CORE__LOAD_EXAMPLES: "False"
+  AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "True"
+
+flower:
+  enabled: true
+
+redis:
+  enabled: true
+
+postgresql:
+  enabled: false
+
+dags:
+  persistence:
     enabled: true
     replicas: 1
     resources: {}
@@ -28,12 +28,19 @@ airflow:
   ## the airflow dags folder
     path: /opt/airflow/dags
 
-  ## configs for the dags PVC
-  ## [FAQ] https://github.com/airflow-helm/charts/blob/main/charts/airflow/docs/faq/dags/load-dag-definitions.md
-    persistence:
-      enabled: false
+web:
+  defaultUser:
+    enabled: true
+    username: "admin"
+    password: "admin"
 
-  ## configs for the git-sync sidecar
-  ## [FAQ] https://github.com/airflow-helm/charts/blob/main/charts/airflow/docs/faq/dags/load-dag-definitions.md
-    gitSync:
-      enabled: false
+
+
+externalDatabase:
+  type: postgres
+  host: postgresql-ha-postgresql
+  port: 5432
+  database: postgres
+  user: postgres
+  passwordSecret: "password"
+  passwordSecretKey: "postgresql-ha-postgresql"
