@@ -10,6 +10,7 @@
 Pour installer ArgoCD il suffit de lancer les commandes suivantes :
 
 ``` bash
+kubectl create namespace argocd
 helm repo add argo https://argoproj.github.io/argo-helm
-helm install my-argo-cd argo/argo-cd --version 7.6.8
+helm install my-argo-cd argo/argo-cd --version 7.6.8 -n argocd
 ```
