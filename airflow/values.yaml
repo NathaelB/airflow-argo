@@ -11,3 +11,22 @@ airflow:
     database: airflow
     user: postgres
     password: fR9QIVp0pA
+  workers:
+    ## if the airflow workers StatefulSet should be deployed
+    enabled: false
+  flower:
+  ## if the airflow flower UI should be deployed
+    enabled: false
+  dags:
+  ## the airflow dags folder
+    path: /opt/airflow/dags
+
+  ## configs for the dags PVC
+  ## [FAQ] https://github.com/airflow-helm/charts/blob/main/charts/airflow/docs/faq/dags/load-dag-definitions.md
+    persistence:
+      enabled: false
+
+  ## configs for the git-sync sidecar
+  ## [FAQ] https://github.com/airflow-helm/charts/blob/main/charts/airflow/docs/faq/dags/load-dag-definitions.md
+    gitSync:
+      enabled: false
