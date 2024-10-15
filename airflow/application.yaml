@@ -6,12 +6,25 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/airflow-helm/charts.git  # Répertoire contenant les charts Helm d'Airflow
+    repoURL: https://github.com/nathaelb/airflow-argo.git  # Répertoire contenant les charts Helm d'Airflow
     targetRevision: main
-    path: charts/airflow
+    path: airflow
     helm:
       valueFiles:
         - values.yaml  # Fichier de valeurs Helm pour Airflow
+        # - sample-values-KubernetesExecutor.yaml
+
+
+
+      # parameters:
+      #   - name: airflow.executor
+      #     value: "KubernetesExecutor"
+      #   - name: airflow.workers.enabled
+      #     value: "false"
+      #   - name: flower.enabled
+      #     value: "false"
+      #   - name: redis.enabled
+      #     value: "false"
   destination:
     server: https://kubernetes.default.svc
     namespace: airflow
