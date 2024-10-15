@@ -1,13 +1,16 @@
-postgresql:
-  enabled: true
-  auth:
-    database: airflow
-    postgresPassword: postgres
-    enablePostgresUser: true
-    replicationPassword: replication
-
-  architecture: replication
-
+postgresql-ha:
+  # global:
+  #   postgresql:
+  #     repmgrUsername: repmgr
+  #     repmgrPassword: repmqr
+  #     repmgrDatabase: repmgr
+  postgresql:
+  #   # username: repmgr
+  #   # password: repmgr
+  #   # database: repmgr
+  #   # repmgrPassword: repmgr
+  #   # upgradeRepmgrExtension: true
+    replicaCount: 3
   replication:
     enabled: true
     readReplicas: 1
