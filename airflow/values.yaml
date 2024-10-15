@@ -14,8 +14,15 @@ airflow:
   workers:
     ## if the airflow workers StatefulSet should be deployed
     enabled: false
+  triggerer:
+    enabled: true
+    replicas: 1
+    resources: {}
+    capacity: 1000
   flower:
   ## if the airflow flower UI should be deployed
+    enabled: false
+  reids:
     enabled: false
   dags:
   ## the airflow dags folder
