@@ -1,6 +1,0 @@
-postgresql-ha:
-  postgresql:
-    replicaCount: 3
-  replication:
-    enabled: true
-    readReplicas: 1

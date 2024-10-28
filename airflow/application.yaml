@@ -35,7 +35,7 @@ spec:
 
         dags:
           persistence:
-            enabled: true
+            enabled: false
 
         web:
           defaultUser:
@@ -51,6 +51,7 @@ spec:
           user: postgres
           passwordSecret: "postgresql-ha-postgresql"
           passwordSecretKey: "password"
+          
   destination:
     server: https://kubernetes.default.svc
     namespace: airflow
